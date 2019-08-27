@@ -4,3 +4,20 @@ main {
 div {
     border: solid black 1px;
 }
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.manhang {
+    height: 300px;
+    width: 300px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("./images/1.jpg")
+}
+section {
+    display: inline;
+}
