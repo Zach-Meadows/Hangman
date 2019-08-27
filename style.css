@@ -1,3 +1,6 @@
-body {
-    background-color: blueviolet;
+main {
+    text-align: center;
+}
+div {
+    border: solid black 1px;
 }
