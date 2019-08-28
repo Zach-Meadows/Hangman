@@ -83,10 +83,19 @@ let word;
 let wordArray = [];
 //add event listener for submit button
 submit.addEventListener("click", function () {
-    //declare empty array to put word pieces into. 
-
+    if (word === '') {
+        return alert('Please enter a word, input cannot be empty')
+    }
     //assign input word to a variable
     word = input.value.toUpperCase();
+    
+    // attempting to add form verification
+
+    // for (let i = 0; i < word.length; i++) {
+    //     if (word[i] === ';' || word[i] === ':' || word) {
+    //         re
+    //     }
+    // }
     document.querySelector('.wordChoice').style.display = 'none';
     document.querySelector('.visualKeyboard').style.display = 'grid';
     //loop through the word putting each letter in to an array seperately

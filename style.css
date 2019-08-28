@@ -16,7 +16,6 @@ div {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url("./images/1.jpg")
 }
 section {
     border: solid black 1px;
@@ -30,6 +29,10 @@ section {
 }
 p {
     margin: 10px;
+}
+input {
+    border: solid blue 1px;
+    border-radius: 100px;
 }
 .visualKeyboard {
     position: relative;
