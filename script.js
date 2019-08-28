@@ -6,8 +6,11 @@ let input = document.querySelector("input")
 let submit = document.querySelector(".submit")
 //array of image links
 let images = ["./images/1.jpg", "./images/2.jpg", "./images/3.jpg", "./images/4.jpg", "./images/5.jpg", "./images/6.jpg", "./images/7.jpg"]
+//define starting point for images
 let imageCount = 0
 document.querySelector('.manhang').style.backgroundImage = `url('${images[imageCount]}')`
+// letterCount represents letters guessed right, this variable is used to check if player has won.
+let letterCount = 0;
 // define keys to be produced for visual keyboard, generate keyboard, with event listener
 var alphabet = []
 function genCharArray(charA, charZ) {
@@ -15,30 +18,41 @@ function genCharArray(charA, charZ) {
     z = charZ.charCodeAt(0);
     for (; a <= z; ++a) {
         let capital = String.fromCharCode(a).toUpperCase()
-        let key = document.createElement('div');
+        let key = document.createElement('p');
         let letter = document.createTextNode(`${capital}`)
         key.appendChild(letter);
         key.className = `key ${String.fromCharCode(a)}`
         //add event listener to each key
         key.addEventListener('click', function (evt) {
-            evt.target.style.backgroundColor = 'red';
             checkLetter = evt.target.innerText
             //check if pressed letter is in word
             if (wordArray.includes(checkLetter)) {
+                evt.target.style.backgroundColor = 'green';
                 //run through word and put letters in correct spots
                 wordArray.forEach(function (element, i) {
                     if (element === checkLetter) {
+                        letterCount++
                         document.querySelector(`.blank${i + 1}`).innerText = element
+                        if (letterCount === wordArray.length) {
+                            console.log('Congrats You got it right!')
+                        }
                     }
                 });
             } else {
+                evt.target.style.backgroundColor = 'red';
+                //if letter not in word, do this stuff
                 console.log('none of that letter')
+                //increase image count
                 imageCount++
-                if (imageCount >= images.length) {
-                    return console.log('image count too high')
-                } else{
-                document.querySelector('.manhang').style.backgroundImage = `url('${images[imageCount]}')`
+                //only allow image to change if we haven't reached the end.
+                if (imageCount + 1 >= images.length) {
+                    document.querySelector('.manhang').style.backgroundImage = `url('${images[imageCount]}')`
+                    return console.log('you fucked, he dead')
+                } else {
+                    //change image to increased number    
+                    document.querySelector('.manhang').style.backgroundImage = `url('${images[imageCount]}')`
                 }
+
             }
         })
         document.querySelector('.visualKeyboard').appendChild(key)
@@ -67,7 +81,7 @@ submit.addEventListener("click", function () {
     for (i = 0; i < word.length; i++) {
         let capital = word[i].toUpperCase()
         wordArray.push(capital);
-        let blank = document.createElement('P');
+        let blank = document.createElement('p');
         let empty = document.createTextNode('__')
         blank.appendChild(empty);
         blank.className = `blank${i + 1}`
