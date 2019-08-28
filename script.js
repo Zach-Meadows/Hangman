@@ -4,6 +4,21 @@
 let input = document.querySelector("input")
 //find submit button
 let submit = document.querySelector(".submit")
+// define keys to be produced for visual keyboard, generate keyboard
+var alphabet = [] 
+function genCharArray(charA, charZ) {
+    a = charA.charCodeAt(0);
+    z = charZ.charCodeAt(0);
+    for (; a <= z; ++a) {
+        let capital = String.fromCharCode(a).toUpperCase()
+        let key = document.createElement('div');
+        let letter = document.createTextNode(`${capital}`)
+        key.appendChild(letter);
+        key.className = `key ${String.fromCharCode(a)}`
+        document.querySelector('.visualKeyboard').appendChild(key)
+    }
+}
+genCharArray('a', 'z');
 
 //add event listener to input for enter key
 input.addEventListener("keypress", function(evt){
@@ -32,4 +47,5 @@ submit.addEventListener("click", function(){
     }
     //print the array
     console.log(wordArray);
+
 })

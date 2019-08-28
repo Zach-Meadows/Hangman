@@ -30,3 +30,24 @@ section {
 p {
     margin: 10px;
 }
+.visualKeyboard {
+    display: grid;
+    grid-template-columns: 40px 40px 40px 40px 40px 40px;
+}
+.key {
+    justify-content: center;
+    background-color: cyan;
+    margin: 3px 10px;
+    padding: 2px 15px;
+    border: solid black 1px;
+    border-radius: 10px;
+}
+.key:hover{
+    background-color: blue;
+}
+.y {
+    grid-column-start: 3;
+}
+.z {
+    grid-column-start: 4;
+}
