@@ -32,6 +32,7 @@ p {
     margin: 10px;
 }
 .visualKeyboard {
+    position: relative;
     display: none;
     grid-template-columns: 40px 40px 40px 40px 40px 40px;
 }
@@ -51,4 +52,10 @@ p {
 }
 .z {
     grid-column-start: 4;
+}
+.reset {
+    display: none;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: limegreen;
 }
