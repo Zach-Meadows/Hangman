@@ -40,6 +40,8 @@ function genCharArray(charA, charZ) {
                         if (letterCount === wordArray.length) {
                             console.log('Congrats You got it right!')
                             reset.style.display = 'block';
+                            document.querySelector('.visualKeyboard').style.display = 'none';
+                            document.body.removeEventListener('keypress', addKeyClick)
                         }
                     }
                 })
@@ -58,9 +60,12 @@ function genCharArray(charA, charZ) {
                     wordArray.forEach(function (element, i) {
                         document.querySelector(`.blank${i + 1}`).innerText = element
                     })
+                    reset.style.display = 'block';
+                    document.querySelector('.visualKeyboard').style.display = 'none';
+                    document.body.removeEventListener('keypress', addKeyClick(evt))
                     // document.querySelector(`.blank${i + 1}`).innerText = word[i]
 
-                    reset.style.display = 'block';
+                    
                 }
 
             }

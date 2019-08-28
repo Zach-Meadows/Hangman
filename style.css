@@ -37,13 +37,17 @@ input {
 .visualKeyboard {
     position: relative;
     display: none;
+    justify-items: center;
+    align-items: center;
+    grid-gap: 3px;
     grid-template-columns: 40px 40px 40px 40px 40px 40px;
 }
 .key {
+    display: flex;
     justify-content: center;
     background-color: cyan;
-    margin: 3px 10px;
-    padding: 2px 15px;
+    padding: 2px 10px;
+    margin: 5px 10px;
     border: solid black 1px;
     border-radius: 10px;
 }
