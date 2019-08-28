@@ -23,6 +23,7 @@ section {
     display: inline;
 }
 .blanks {
+    margin: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,7 +32,7 @@ p {
     margin: 10px;
 }
 .visualKeyboard {
-    display: grid;
+    display: none;
     grid-template-columns: 40px 40px 40px 40px 40px 40px;
 }
 .key {
