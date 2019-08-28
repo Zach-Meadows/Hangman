@@ -14,7 +14,7 @@ div {
     height: 300px;
     width: 300px;
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-image: url("./images/1.jpg")
 }
