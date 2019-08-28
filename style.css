@@ -19,5 +19,14 @@ div {
     background-image: url("./images/1.jpg")
 }
 section {
+    border: solid black 1px;
     display: inline;
+}
+.blanks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+p {
+    margin: 10px;
 }

@@ -20,9 +20,15 @@ submit.addEventListener("click", function(){
     let wordArray = [];
     //assign input word to a variable
     let word = input.value;
+    document.querySelector('.wordChoice').style.display = 'none';
     //loop through the word putting each letter in to an array seperately
     for (i = 0; i < word.length; i++) {
-        wordArray.push(word[i])
+        wordArray.push(word[i]);
+        let blank = document.createElement('P');
+        let empty = document.createTextNode('__')
+        blank.appendChild(empty);
+        blank.className = `blank${i + 1}`
+        document.querySelector('.blanks').appendChild(blank)
     }
     //print the array
     console.log(wordArray);
