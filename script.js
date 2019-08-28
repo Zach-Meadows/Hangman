@@ -83,14 +83,14 @@ let word;
 let wordArray = [];
 //add event listener for submit button
 submit.addEventListener("click", function () {
+   
+    //assign input word to a variable
+    word = input.value.toUpperCase();
+
+    // attempting to add form verification
     if (word === '') {
         return alert('Please enter a word, input cannot be empty')
     }
-    //assign input word to a variable
-    word = input.value.toUpperCase();
-    
-    // attempting to add form verification
-
     // for (let i = 0; i < word.length; i++) {
     //     if (word[i] === ';' || word[i] === ':' || word) {
     //         re
