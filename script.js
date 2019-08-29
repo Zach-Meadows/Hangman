@@ -1,22 +1,30 @@
 //declaring variables to use throught the program
 
 //find input for word being entered
-let input = document.querySelector("input")
+let input = document.querySelector("input");
 //find submit button
-let submit = document.querySelector(".submit")
+let submit = document.querySelector(".submit");
 //find reset button
-let reset = document.querySelector(".reset")
-//array of image links
-let images = ["./images/1.jpg", "./images/2.jpg", "./images/3.jpg", "./images/4.jpg", "./images/5.jpg", "./images/6.jpg", "./images/7.jpg"]
+let reset = document.querySelector(".reset");
+//array of image links. These items will be used to define a style choice function yet to be created.
+// mother array
+let images = []
+// children arrays
+let defImages = ["./images/default/1.jpg", "./images/default/2.jpg", "./images/default/3.jpg", "./images/default/4.jpg", "./images/default/5.jpg", "./images/default/6.jpg", "./images/default/7.jpg"];
+let seanImages = ["./images/sean/1.jpg", "./images/sean/2.jpg", "./images/sean/3.jpg", "./images/sean/4.jpg", "./images/sean/5.jpg", "./images/sean/6.jpg", "./images/sean/7.jpg"]
+images.push(defImages)
+images.push(seanImages)
+//define default image style choice. 
+let imageStyle = 0
 //define starting point for images, and set the background
-let imageCount = 0
-document.querySelector('.manhang').style.backgroundImage = `url('${images[imageCount]}')`
+let imageCount = 0;
+document.querySelector('.manhang').style.backgroundImage = `url('${defImages[imageCount]}')`;
 // letterCount represents letters guessed right, this variable is used to check if player has won.
-let letterCount = 0
+let letterCount = 0;
 //define an empty array to store used letters
 let usedLetter = [];
 // define keys to be produced for visual keyboard, generate keyboard, with event listener
-var alphabet = []
+var alphabet = [];
 function genCharArray(charA, charZ) {
     a = charA.charCodeAt(0);
     z = charZ.charCodeAt(0);
@@ -63,9 +71,9 @@ function genCharArray(charA, charZ) {
                 //increase image count
                 imageCount++
                 //change background image
-                document.querySelector('.manhang').style.backgroundImage = `url('${images[imageCount]}')`
+                document.querySelector('.manhang').style.backgroundImage = `url('${defImages[imageCount]}')`
                 //CHECK IF LOST
-                if (imageCount + 1 >= images.length) {
+                if (imageCount + 1 >= defImages.length) {
                     document.querySelector('.results').innerText = 'YOU KILLED HIM! Try again.'
                     //loop to assign all letters 
                     wordArray.forEach(function (element, i) {
@@ -113,6 +121,7 @@ submit.addEventListener("click", function () {
     //     }
     // }
     document.querySelector('.wordChoice').style.display = 'none';
+    document.querySelector('.blanks').style.display = 'flex';
     document.querySelector('.visualKeyboard').style.display = 'grid';
     //loop through the word putting each letter in to an array seperately
     for (i = 0; i < word.length; i++) {
@@ -123,8 +132,6 @@ submit.addEventListener("click", function () {
         blank.className = `blank${i + 1}`
         document.querySelector('.blanks').appendChild(blank)
     }
-    //print the array
-    console.log(wordArray);
     document.body.addEventListener('keypress', addKeyClick)
 })
 function addKeyClick(evt) {
@@ -140,6 +147,7 @@ reset.addEventListener('click', function () {
     document.querySelector('.visualKeyboard').style.display = 'none';
     input.value = '';
     document.body.removeEventListener('keypress', addKeyClick)
+    document.querySelector('.blanks').style.display = 'none';
     document.querySelector('.blanks').innerHTML = null;
     reset.style.display = 'none';
     let children = document.querySelectorAll('.key')
@@ -148,6 +156,6 @@ reset.addEventListener('click', function () {
     }
     imageCount = 0;
     letterCount = 0;
-    document.querySelector('.manhang').style.backgroundImage = `url('${images[0]}')`
+    document.querySelector('.manhang').style.backgroundImage = `url('${defImages[0]}')`
     document.querySelector('.results').innerText = null;
 })

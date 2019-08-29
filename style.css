@@ -1,9 +1,25 @@
+body {
+    background-image: url('./images/sketch.png');
+    background-color: rgb(255, 231, 153);
+    background-repeat: repeat;
+    font-family: 'Neucha', cursive;
+}
 main {
     text-align: center;
 }
-div {
-    border: solid black 1px;
+h1 {
+    font-size: 44px;
+    /* style for sackboy 
+    font-family: 'Amatic SC', cursive;
+    font-size: 55px;
+    */
 }
+h2 {
+    font-size: 27px;
+}
+/* div {
+     border: solid black 1px; 
+} */
 .container {
     display: flex;
     flex-direction: column;
@@ -11,6 +27,8 @@ div {
     align-items: center;
 }
 .manhang {
+    border: solid #f8f7f7 4px;
+    border-radius: 10px;
     height: 300px;
     width: 300px;
     background-position: center;
@@ -18,12 +36,15 @@ div {
     background-repeat: no-repeat;
 }
 section {
-    border: solid black 1px;
+    background-color: #d1c5c5;
+    border: solid #f8f7f7 2px;
     display: inline;
+    padding: 5px 20px;
+    border-radius: 100px;
 }
 .blanks {
     margin: 5px;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 }
@@ -35,6 +56,9 @@ input {
     border-radius: 100px;
 }
 .visualKeyboard {
+    border-radius: 10px;
+    padding: 4px;
+    background-color: #d1c5c5;
     position: relative;
     display: none;
     justify-items: center;
@@ -63,6 +87,12 @@ input {
 .reset {
     display: none;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 20px;
     background-color: limegreen;
+}
+.submit {
+    /* font-family: 'Neucha', cursive; */
+    padding: 4px;
+    border-radius: 10px;
+    background-color: rgb(201, 255, 164);
 }
