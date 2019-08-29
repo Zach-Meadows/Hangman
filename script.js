@@ -49,7 +49,7 @@ function genCharArray(charA, charZ) {
             }
             //check if pressed letter is in word
             if (wordArray.includes(checkLetter)) {
-                evt.target.style.backgroundColor = 'green';
+                evt.target.style.backgroundColor = 'rgb(97, 204, 97)';
                 //run through word and put letters in correct spots
                 wordArray.forEach(function (element, i) {
                     if (element === checkLetter) {
@@ -66,7 +66,7 @@ function genCharArray(charA, charZ) {
                 })
                 //if letter is not in word, do this
             } else {
-                evt.target.style.backgroundColor = 'red';
+                evt.target.style.backgroundColor = 'rgb(255, 94, 94)';
                 console.log('none of that letter')
                 //increase image count
                 imageCount++

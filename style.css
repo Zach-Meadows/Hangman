@@ -8,13 +8,17 @@ main {
     text-align: center;
 }
 h1 {
-    font-size: 44px;
+    font-size: 60px;
+    color: cornsilk;
+    text-shadow: 3px 1px 0 rgb(173, 113, 1);
     /* style for sackboy 
     font-family: 'Amatic SC', cursive;
     font-size: 55px;
     */
 }
 h2 {
+    color: cornsilk;
+    text-shadow: 3px 1px 0 rgb(173, 113, 1);
     font-size: 27px;
 }
 /* div {
