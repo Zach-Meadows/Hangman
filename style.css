@@ -52,6 +52,7 @@ section {
 }
 p {
     margin: 10px;
+    font-size: 25px;
 }
 .blanks {
     margin: 5px;
@@ -115,7 +116,7 @@ input {
     padding: 8px;
     border: solid white 2px;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 17px;
 }
 .wordChoice {
     margin: 10px;
