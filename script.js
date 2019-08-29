@@ -116,6 +116,11 @@ submit.addEventListener("click", function () {
     word = input.value.toUpperCase();
 
     // attempting to add form verification
+    var letters = /^[A-Za-z]+$/;
+    if (!word.match(letters)) {
+        return alert("you can only use letters in hangman! No spaces!");
+    }
+
     if (word === '') {
         return alert('Please enter a word, input cannot be empty')
     }
@@ -138,6 +143,7 @@ submit.addEventListener("click", function () {
     }
     document.body.addEventListener('keypress', addKeyClick)
 })
+// function must be named in order to be removed later
 function addKeyClick(evt) {
     //add event listener to document to click visual keyboard on keypress.
     evt.preventDefault()
@@ -165,14 +171,15 @@ reset.addEventListener('click', function () {
     document.querySelector('.results').style.display = 'none';
     document.querySelector('.results').style.backgroundColor = '#d1c5c5';
 })
-document.querySelector('.defaultStyle').addEventListener('click', function(){
+//add event listeners for style buttons
+document.querySelector('.defaultStyle').addEventListener('click', function () {
     imageStyle = 0;
     document.querySelector('.manhang').style.backgroundImage = `url('${images[imageStyle][imageCount]}')`;
     document.body.style.backgroundImage = "url('./images/sketch.png')"
     document.body.style.backgroundColor = "rgb(255, 231, 153)"
     document.body.style.fontFamily = "'Neucha', cursive"
 })
-document.querySelector('.seanStyle').addEventListener('click', function(){
+document.querySelector('.seanStyle').addEventListener('click', function () {
     imageStyle = 1;
     document.querySelector('.manhang').style.backgroundImage = `url('${images[imageStyle][imageCount]}')`;
     document.body.style.backgroundImage = "url('./images/sack.png')";
