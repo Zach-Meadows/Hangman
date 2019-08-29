@@ -141,7 +141,7 @@ function addKeyClick(evt) {
     document.querySelector(`.${evt.key}`).click()
 }
 //reset button returns all values to their starting values.
-reset.addEventListener('click', function () {
+function resetMulti() {
     wordArray = [];
     usedLetter = [];
     document.querySelector('.wordChoice').style.display = 'block';
@@ -161,7 +161,8 @@ reset.addEventListener('click', function () {
     document.querySelector('.results').innerText = null;
     document.querySelector('.results').style.display = 'none';
     document.querySelector('.results').style.backgroundColor = '#d1c5c5';
-})
+}
+reset.addEventListener('click', resetMulti)
 //add event listeners for style buttons
 document.querySelector('.defaultStyle').addEventListener('click', function () {
     imageStyle = 0;
@@ -178,7 +179,34 @@ document.querySelector('.seanStyle').addEventListener('click', function () {
     document.body.style.fontFamily = "'Amatic SC', cursive"
 })
 
-document.querySelector('.magic').addEventListener('click', function () {
+function resetSolo(){
+    wordArray = [];
+    usedLetter = [];
+    document.body.removeEventListener('keypress', addKeyClick)
+    document.querySelector('.blanks').style.display = 'none';
+    document.querySelector('.blanks').innerHTML = null;
+    reset.style.display = 'none';
+    let children = document.querySelectorAll('.key')
+    for (let i = 0; i < children.length; i++) {
+        children[i].style.backgroundColor = 'cyan';
+    }
+    imageCount = 0;
+    letterCount = 0;
+    document.querySelector('.manhang').style.backgroundImage = `url('${images[imageStyle][0]}')`
+    document.querySelector('.results').innerText = null;
+    document.querySelector('.results').style.display = 'none';
+    document.querySelector('.results').style.backgroundColor = '#d1c5c5';
+    document.querySelector('.visualKeyboard').style.display = 'none';
+    randomWord()
+}
+
+document.querySelector('.single').addEventListener('click', function () {
+    document.querySelector('.wordChoice').style.display = 'none';
+    reset.removeEventListener('click', resetMulti)
+    reset.addEventListener('click', resetSolo)
+    randomWord()
+})
+function randomWord() {
     fetch("https://wordsapiv1.p.mashape.com/words/?random=true", {
         "method": "GET",
         "headers": {
@@ -192,29 +220,27 @@ document.querySelector('.magic').addEventListener('click', function () {
         })
         .then(response => {
             console.log(response.word)
-            response.word.toUpperCase()
-            for (let i = 0; i < response.word.length; i++) {
-                if (condition) {
-                    
+            word = response.word.toUpperCase()
+            var letters = /^[A-Za-z]+$/;
+            if (!word.match(letters)) {
+                return randomWord();
+            } else {
+                console.log(word)
+                document.querySelector('.blanks').style.display = 'flex';
+                document.querySelector('.visualKeyboard').style.display = 'grid';
+                for (i = 0; i < word.length; i++) {
+                    wordArray.push(word[i]);
+                    let blank = document.createElement('p');
+                    let empty = document.createTextNode('_')
+                    blank.appendChild(empty);
+                    blank.className = `blank${i + 1}`
+                    document.querySelector('.blanks').appendChild(blank)
                 }
-                
+                document.body.addEventListener('keypress', addKeyClick)
             }
+
         })
         .catch(err => {
             console.log(err);
         });
-})
-
-// fetch("https://wordsapiv1.p.rapidapi.com/words/incredible/definitions", {
-// 	"method": "GET",
-// 	"headers": {
-// 		"x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-// 		"x-rapidapi-key": "8bbcf8b82bmsh5d4c78b130ba348p15915fjsnfb896b88221e"
-// 	}
-// })
-// .then(response => {
-// 	console.log(response);
-// })
-// .catch(err => {
-// 	console.log(err);
-// });
+}
