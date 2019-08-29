@@ -61,6 +61,8 @@ function genCharArray(charA, charZ) {
                             reset.style.display = 'block';
                             document.querySelector('.visualKeyboard').style.display = 'none';
                             document.body.removeEventListener('keypress', addKeyClick)
+                            document.querySelector('.results').style.display = 'flex';
+                            document.querySelector('.results').style.backgroundColor = 'rgb(97, 204, 97)';
                         }
                     }
                 })
@@ -82,6 +84,8 @@ function genCharArray(charA, charZ) {
                     reset.style.display = 'block';
                     document.querySelector('.visualKeyboard').style.display = 'none';
                     document.body.removeEventListener('keypress', addKeyClick)
+                    document.querySelector('.results').style.display = 'flex';
+                    document.querySelector('.results').style.backgroundColor = 'rgb(255, 94, 94)';
                     // document.querySelector(`.blank${i + 1}`).innerText = word[i]
 
 
@@ -127,7 +131,7 @@ submit.addEventListener("click", function () {
     for (i = 0; i < word.length; i++) {
         wordArray.push(word[i]);
         let blank = document.createElement('p');
-        let empty = document.createTextNode('__')
+        let empty = document.createTextNode('_')
         blank.appendChild(empty);
         blank.className = `blank${i + 1}`
         document.querySelector('.blanks').appendChild(blank)
@@ -158,4 +162,6 @@ reset.addEventListener('click', function () {
     letterCount = 0;
     document.querySelector('.manhang').style.backgroundImage = `url('${defImages[0]}')`
     document.querySelector('.results').innerText = null;
+    document.querySelector('.results').style.display = 'none';
+    document.querySelector('.results').style.backgroundColor = '#d1c5c5';
 })

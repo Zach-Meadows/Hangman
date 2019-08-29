@@ -31,6 +31,7 @@ h2 {
     align-items: center;
 }
 .manhang {
+    margin: 5px;
     border: solid #f8f7f7 4px;
     border-radius: 10px;
     height: 300px;
@@ -46,14 +47,19 @@ section {
     padding: 5px 20px;
     border-radius: 100px;
 }
+p {
+    margin: 10px;
+}
 .blanks {
     margin: 5px;
     display: none;
     justify-content: center;
     align-items: center;
 }
-p {
-    margin: 10px;
+.blanks > p {
+    margin: 0px;
+    letter-spacing: 4px;
+    font-size: 40px;
 }
 input {
     border: solid blue 1px;
@@ -99,4 +105,15 @@ input {
     padding: 4px;
     border-radius: 10px;
     background-color: rgb(40, 241, 255);
+}
+.results {
+    display: none;
+    background-color: #d1c5c5;
+    padding: 8px;
+    border: solid white 2px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+.wordChoice {
+    margin: 10px;
 }
