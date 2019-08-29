@@ -168,9 +168,14 @@ reset.addEventListener('click', function () {
 document.querySelector('.defaultStyle').addEventListener('click', function(){
     imageStyle = 0;
     document.querySelector('.manhang').style.backgroundImage = `url('${images[imageStyle][imageCount]}')`;
+    document.body.style.backgroundImage = "url('./images/sketch.png')"
+    document.body.style.backgroundColor = "rgb(255, 231, 153)"
+    document.body.style.fontFamily = "'Neucha', cursive"
 })
 document.querySelector('.seanStyle').addEventListener('click', function(){
     imageStyle = 1;
     document.querySelector('.manhang').style.backgroundImage = `url('${images[imageStyle][imageCount]}')`;
-    
+    document.body.style.backgroundImage = "url('./images/sack.png')";
+    document.body.style.backgroundColor = "sandybrown"
+    document.body.style.fontFamily = "'Amatic SC', cursive"
 })
