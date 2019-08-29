@@ -13,21 +13,32 @@ let imageCount = 0
 document.querySelector('.manhang').style.backgroundImage = `url('${images[imageCount]}')`
 // letterCount represents letters guessed right, this variable is used to check if player has won.
 let letterCount = 0
+//define an empty array to store used letters
+let usedLetter = [];
 // define keys to be produced for visual keyboard, generate keyboard, with event listener
 var alphabet = []
 function genCharArray(charA, charZ) {
     a = charA.charCodeAt(0);
     z = charZ.charCodeAt(0);
+    //loop that adds features for each letter in the alphabet 
     for (; a <= z; ++a) {
+        //capitalize each letter
         let capital = String.fromCharCode(a).toUpperCase()
+        //series of commands that append keys to visual keyboard, including an event listener for each key.
         let key = document.createElement('p');
         let letter = document.createTextNode(`${capital}`)
         key.appendChild(letter);
+        //given a class to make it easier to manipulate in the DOM
         key.className = `key ${String.fromCharCode(a)}`
+
         //add event listener to each key
         key.addEventListener('click', function (evt) {
             checkLetter = evt.target.innerText
-            evt.target.style.zIndex = '-1';
+            if (usedLetter.includes(checkLetter)) {
+                return alert('you have already guessed that letter, please choose a different one.')
+            } else {
+                usedLetter.push(checkLetter)
+            }
             //check if pressed letter is in word
             if (wordArray.includes(checkLetter)) {
                 evt.target.style.backgroundColor = 'green';
@@ -38,7 +49,7 @@ function genCharArray(charA, charZ) {
                         document.querySelector(`.blank${i + 1}`).innerText = element
                         //CHECK IF WON
                         if (letterCount === wordArray.length) {
-                            console.log('Congrats You got it right!')
+                            document.querySelector('.results').innerText = 'Congrats! You got it right!'
                             reset.style.display = 'block';
                             document.querySelector('.visualKeyboard').style.display = 'none';
                             document.body.removeEventListener('keypress', addKeyClick)
@@ -55,17 +66,17 @@ function genCharArray(charA, charZ) {
                 document.querySelector('.manhang').style.backgroundImage = `url('${images[imageCount]}')`
                 //CHECK IF LOST
                 if (imageCount + 1 >= images.length) {
-                    console.log('you fucked, he dead')
+                    document.querySelector('.results').innerText = 'YOU KILLED HIM! Try again.'
                     //loop to assign all letters 
                     wordArray.forEach(function (element, i) {
                         document.querySelector(`.blank${i + 1}`).innerText = element
                     })
                     reset.style.display = 'block';
                     document.querySelector('.visualKeyboard').style.display = 'none';
-                    document.body.removeEventListener('keypress', addKeyClick(evt))
+                    document.body.removeEventListener('keypress', addKeyClick)
                     // document.querySelector(`.blank${i + 1}`).innerText = word[i]
 
-                    
+
                 }
 
             }
@@ -88,7 +99,7 @@ let word;
 let wordArray = [];
 //add event listener for submit button
 submit.addEventListener("click", function () {
-   
+
     //assign input word to a variable
     word = input.value.toUpperCase();
 
@@ -124,6 +135,7 @@ function addKeyClick(evt) {
 //reset button returns all values to their starting values.
 reset.addEventListener('click', function () {
     wordArray = [];
+    usedLetter = [];
     document.querySelector('.wordChoice').style.display = 'block';
     document.querySelector('.visualKeyboard').style.display = 'none';
     input.value = '';
@@ -133,9 +145,9 @@ reset.addEventListener('click', function () {
     let children = document.querySelectorAll('.key')
     for (let i = 0; i < children.length; i++) {
         children[i].style.backgroundColor = 'cyan';
-        children[i].style.zIndex = 1;
     }
     imageCount = 0;
     letterCount = 0;
     document.querySelector('.manhang').style.backgroundImage = `url('${images[0]}')`
+    document.querySelector('.results').innerText = null;
 })
