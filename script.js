@@ -118,17 +118,8 @@ submit.addEventListener("click", function () {
     // attempting to add form verification
     var letters = /^[A-Za-z]+$/;
     if (!word.match(letters)) {
-        return alert("you can only use letters in hangman! No spaces!");
+        return alert("you can only use letters in hangman! No special characters or spaces!");
     }
-
-    if (word === '') {
-        return alert('Please enter a word, input cannot be empty')
-    }
-    // for (let i = 0; i < word.length; i++) {
-    //     if (word[i] === ';' || word[i] === ':' || word) {
-    //         re
-    //     }
-    // }
     document.querySelector('.wordChoice').style.display = 'none';
     document.querySelector('.blanks').style.display = 'flex';
     document.querySelector('.visualKeyboard').style.display = 'grid';
@@ -186,3 +177,37 @@ document.querySelector('.seanStyle').addEventListener('click', function () {
     document.body.style.backgroundColor = "sandybrown"
     document.body.style.fontFamily = "'Amatic SC', cursive"
 })
+
+document.querySelector('.magic').addEventListener('click', function () {
+    fetch("https://wordsapiv1.p.rapidapi.com/words/?random=true", {
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
+            "x-rapidapi-key": "8bbcf8b82bmsh5d4c78b130ba348p15915fjsnfb896b88221e"
+        }
+    })
+        .then(response => {
+            console.log(response);
+            return response.json()
+        })
+        .then(response => {
+            console.log(response.word)
+        })
+        .catch(err => {
+            console.log(err);
+        });
+})
+
+// fetch("https://wordsapiv1.p.rapidapi.com/words/incredible/definitions", {
+// 	"method": "GET",
+// 	"headers": {
+// 		"x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
+// 		"x-rapidapi-key": "8bbcf8b82bmsh5d4c78b130ba348p15915fjsnfb896b88221e"
+// 	}
+// })
+// .then(response => {
+// 	console.log(response);
+// })
+// .catch(err => {
+// 	console.log(err);
+// });

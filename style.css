@@ -55,6 +55,7 @@ p {
     font-size: 25px;
 }
 .blanks {
+    max-width: 100%;
     margin: 5px;
     display: none;
     justify-content: center;
