@@ -18,7 +18,7 @@ images.push(seanImages)
 let imageStyle = 0
 //define starting point for images, and set the background
 let imageCount = 0;
-document.querySelector('.manhang').style.backgroundImage = `url('${defImages[imageCount]}')`;
+document.querySelector('.manhang').style.backgroundImage = `url('${images[imageStyle][imageCount]}')`;
 // letterCount represents letters guessed right, this variable is used to check if player has won.
 let letterCount = 0;
 //define an empty array to store used letters
@@ -73,9 +73,9 @@ function genCharArray(charA, charZ) {
                 //increase image count
                 imageCount++
                 //change background image
-                document.querySelector('.manhang').style.backgroundImage = `url('${defImages[imageCount]}')`
+                document.querySelector('.manhang').style.backgroundImage = `url('${images[imageStyle][imageCount]}')`
                 //CHECK IF LOST
-                if (imageCount + 1 >= defImages.length) {
+                if (imageCount + 1 >= images[imageStyle].length) {
                     document.querySelector('.results').innerText = 'YOU KILLED HIM! Try again.'
                     //loop to assign all letters 
                     wordArray.forEach(function (element, i) {
@@ -160,8 +160,17 @@ reset.addEventListener('click', function () {
     }
     imageCount = 0;
     letterCount = 0;
-    document.querySelector('.manhang').style.backgroundImage = `url('${defImages[0]}')`
+    document.querySelector('.manhang').style.backgroundImage = `url('${images[imageStyle][0]}')`
     document.querySelector('.results').innerText = null;
     document.querySelector('.results').style.display = 'none';
     document.querySelector('.results').style.backgroundColor = '#d1c5c5';
+})
+document.querySelector('.defaultStyle').addEventListener('click', function(){
+    imageStyle = 0;
+    document.querySelector('.manhang').style.backgroundImage = `url('${images[imageStyle][imageCount]}')`;
+})
+document.querySelector('.seanStyle').addEventListener('click', function(){
+    imageStyle = 1;
+    document.querySelector('.manhang').style.backgroundImage = `url('${images[imageStyle][imageCount]}')`;
+    
 })

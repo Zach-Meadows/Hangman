@@ -30,6 +30,9 @@ h2 {
     justify-content: center;
     align-items: center;
 }
+aside {
+    display: flex;
+}
 .manhang {
     margin: 5px;
     border: solid #f8f7f7 4px;
@@ -116,4 +119,22 @@ input {
 }
 .wordChoice {
     margin: 10px;
+}
+aside > button {
+    padding: 4px;
+    margin: 4px;
+    background-color: rgb(40, 241, 255);
+    border: solid white 2px;
+    border-radius: 8px;
+}
+button:hover {
+    background-color: blue;
+}
+.defaultStyle {
+    font-family: 'Neucha', cursive;
+    font-size: 22px;
+}
+.seanStyle {
+    font-family: 'Amatic SC', cursive;
+    font-size: 20px;
 }
