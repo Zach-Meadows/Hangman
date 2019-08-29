@@ -179,7 +179,7 @@ document.querySelector('.seanStyle').addEventListener('click', function () {
 })
 
 document.querySelector('.magic').addEventListener('click', function () {
-    fetch("https://wordsapiv1.p.rapidapi.com/words/?random=true", {
+    fetch("https://wordsapiv1.p.mashape.com/words/?random=true", {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
@@ -192,6 +192,13 @@ document.querySelector('.magic').addEventListener('click', function () {
         })
         .then(response => {
             console.log(response.word)
+            response.word.toUpperCase()
+            for (let i = 0; i < response.word.length; i++) {
+                if (condition) {
+                    
+                }
+                
+            }
         })
         .catch(err => {
             console.log(err);
