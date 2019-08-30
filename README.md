@@ -35,3 +35,6 @@ Features that could be added later
 - keep score of player performance
   - include timer
   - subtract points for wrong letter or using hint
+- animate hangman pictures changing
+- animate win/lose messages
+- have modal message instead of alerts for letters already guessed
