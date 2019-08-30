@@ -68,7 +68,6 @@ function genCharArray(charA, charZ) {
                 //if letter is not in word, do this
             } else {
                 evt.target.style.backgroundColor = 'rgb(255, 94, 94)';
-                console.log('none of that letter')
                 //increase image count
                 imageCount++
                 //change background image
@@ -213,6 +212,10 @@ document.querySelector('.single').addEventListener('click', soloMode)
 
 //solo mode toggle
 function soloMode() {
+    document.querySelector('.blanks').innerHTML = '';
+    console.log(document.querySelector('.blanks').innerHTML)
+    wordArray = [];
+    document.querySelector('.blanks').style.display = 'none';
     document.querySelector('.single').removeEventListener('click', soloMode)
     document.querySelector('.single').innerHTML = "Toggle Players</br><b>Single</b>";
     document.querySelector('.single').style.backgroundColor = 'green';
