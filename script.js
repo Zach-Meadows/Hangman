@@ -202,12 +202,27 @@ function resetSolo() {
 }
 //event listener to trigger solo play
 document.querySelector('.single').addEventListener('click', soloMode)
-
+//solo mode toggle
 function soloMode(){
+    document.querySelector('.single').removeEventListener('click', soloMode)
+    document.querySelector('.single').innerHTML = "Multi Player";
+    document.querySelector('.single').style.backgroundColor = 'blue';
+    randomWord()
+    document.querySelector('.single').addEventListener('click', multiMode)
     document.querySelector('.wordChoice').style.display = 'none';
     reset.removeEventListener('click', resetMulti)
-    reset.addEventListener('click', resetSolo)
-    randomWord()
+    reset.addEventListener('click', resetSolo)   
+}
+//multiplayer mode toggle
+function multiMode(){
+    document.querySelector('.single').removeEventListener('click', multiMode)
+    document.querySelector('.single').innerHTML = "Single Player";
+    document.querySelector('.single').style.backgroundColor = 'rgb(40, 241, 255)';
+    document.querySelector('.single').addEventListener('click', soloMode)
+    document.querySelector('.wordChoice').style.display = 'inline';
+    reset.removeEventListener('click', resetSolo)
+    reset.addEventListener('click', resetMulti)
+    reset.click()
 }
 //define empty variable where we will store a word to define(webster)
 let define = 'nothing';
