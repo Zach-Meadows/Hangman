@@ -90,7 +90,7 @@ input {
     border: solid black 1px;
     border-radius: 10px;
 }
-.key:hover{
+.key:hover {
     background-color: blue;
 }
 .y {
