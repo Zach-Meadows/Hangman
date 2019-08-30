@@ -162,6 +162,7 @@ function resetMulti() {
     document.querySelector('.results').style.display = 'none';
     document.querySelector('.results').style.backgroundColor = '#d1c5c5';
 }
+//add default reset button listener
 reset.addEventListener('click', resetMulti)
 //add event listeners for style buttons
 document.querySelector('.defaultStyle').addEventListener('click', function () {
@@ -178,8 +179,8 @@ document.querySelector('.seanStyle').addEventListener('click', function () {
     document.body.style.backgroundColor = "sandybrown"
     document.body.style.fontFamily = "'Amatic SC', cursive"
 })
-
-function resetSolo(){
+//reset for solo play
+function resetSolo() {
     wordArray = [];
     usedLetter = [];
     document.body.removeEventListener('keypress', addKeyClick)
@@ -199,13 +200,18 @@ function resetSolo(){
     document.querySelector('.visualKeyboard').style.display = 'none';
     randomWord()
 }
+//event listener to trigger solo play
+document.querySelector('.single').addEventListener('click', soloMode)
 
-document.querySelector('.single').addEventListener('click', function () {
+function soloMode(){
     document.querySelector('.wordChoice').style.display = 'none';
     reset.removeEventListener('click', resetMulti)
     reset.addEventListener('click', resetSolo)
     randomWord()
-})
+}
+//define empty variable where we will store a word to define(webster)
+let define = 'nothing';
+//gets a random 'word' from wordsapi
 function randomWord() {
     fetch("https://wordsapiv1.p.mashape.com/words/?random=true", {
         "method": "GET",
@@ -215,32 +221,79 @@ function randomWord() {
         }
     })
         .then(response => {
-            console.log(response);
             return response.json()
         })
         .then(response => {
             console.log(response.word)
+            define = response.word
             word = response.word.toUpperCase()
+            //check if word is single word, no characters
             var letters = /^[A-Za-z]+$/;
+            //if false, try again
             if (!word.match(letters)) {
                 return randomWord();
             } else {
-                console.log(word)
-                document.querySelector('.blanks').style.display = 'flex';
-                document.querySelector('.visualKeyboard').style.display = 'grid';
-                for (i = 0; i < word.length; i++) {
-                    wordArray.push(word[i]);
-                    let blank = document.createElement('p');
-                    let empty = document.createTextNode('_')
-                    blank.appendChild(empty);
-                    blank.className = `blank${i + 1}`
-                    document.querySelector('.blanks').appendChild(blank)
-                }
-                document.body.addEventListener('keypress', addKeyClick)
+                //check webster for word
+                fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${define}?key=8d012909-4bf9-45f5-86df-ccdc1e275d84`)
+                    .then(response => {
+                        return response.json()
+                    })
+                    .then(response => {
+                        console.log(response)
+                        //if response returns large array(aka not a word), use first word
+                        if (response.length === 20) {
+                            console.log(response[0])
+                            define = response[0]
+                            word = response[0].toUpperCase()
+                            webster()
+                            console.log(word)
+                            document.querySelector('.blanks').style.display = 'flex';
+                            document.querySelector('.visualKeyboard').style.display = 'grid';
+                            for (i = 0; i < word.length; i++) {
+                                wordArray.push(word[i]);
+                                let blank = document.createElement('p');
+                                let empty = document.createTextNode('_')
+                                blank.appendChild(empty);
+                                blank.className = `blank${i + 1}`
+                                document.querySelector('.blanks').appendChild(blank)
+                            }
+                            document.body.addEventListener('keypress', addKeyClick)
+                            //else use word given
+                        } else if (response.length === 1) {
+                            console.log('its a real word', response[0].shortdef)
+                            def = response[0].shortdef;
+                            console.log(word)
+                            document.querySelector('.blanks').style.display = 'flex';
+                            document.querySelector('.visualKeyboard').style.display = 'grid';
+                            for (i = 0; i < word.length; i++) {
+                                wordArray.push(word[i]);
+                                let blank = document.createElement('p');
+                                let empty = document.createTextNode('_')
+                                blank.appendChild(empty);
+                                blank.className = `blank${i + 1}`
+                                document.querySelector('.blanks').appendChild(blank)
+                            }
+                            document.body.addEventListener('keypress', addKeyClick)
+                        }
+
+                    })
             }
 
         })
         .catch(err => {
             console.log(err);
         });
+}
+document.querySelector('.define').addEventListener('click', webster)
+
+function webster() {
+    fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${define}?key=8d012909-4bf9-45f5-86df-ccdc1e275d84`)
+        .then(response => {
+            return response.json()
+        })
+        .then(response => {
+            console.log(response[0].shortdef[0])
+            shortdef = response[0].shortdef[0]
+
+        })
 }
