@@ -24,7 +24,6 @@ let letterCount = 0;
 //define an empty array to store used letters
 let usedLetter = [];
 // define keys to be produced for visual keyboard, generate keyboard, with event listener
-var alphabet = [];
 function genCharArray(charA, charZ) {
     a = charA.charCodeAt(0);
     z = charZ.charCodeAt(0);
@@ -41,7 +40,7 @@ function genCharArray(charA, charZ) {
         //add event listener to each key
         key.addEventListener('click', function (evt) {
             checkLetter = evt.target.innerText
-            //check if letter has been guessed, if no put it in used letter array
+            //check if letter has been guessed, if not, put it in usedLetter array
             if (usedLetter.includes(checkLetter)) {
                 return alert('you have already guessed that letter, please choose a different one.')
             } else {
@@ -90,6 +89,7 @@ function genCharArray(charA, charZ) {
 
             }
         })
+        //after assigning all values to a single key, append it.
         document.querySelector('.visualKeyboard').appendChild(key)
     }
 }
@@ -112,7 +112,7 @@ submit.addEventListener("click", function () {
     //assign input word to a variable
     word = input.value.toUpperCase();
 
-    // attempting to add form verification
+    // form validation checking for single word, letters only
     var letters = /^[A-Za-z]+$/;
     if (!word.match(letters)) {
         return alert("you can only use letters in hangman! No special characters or spaces!");
@@ -137,7 +137,9 @@ function addKeyClick(evt) {
     evt.preventDefault()
     document.querySelector(`.${evt.key}`).click()
 }
-//reset button returns all values to their starting values.
+//reset buttons returns all values to their starting values.
+
+//reset for multiplayer
 function resetMulti() {
     wordArray = [];
     usedLetter = [];
@@ -161,21 +163,7 @@ function resetMulti() {
 }
 //add default reset button listener
 reset.addEventListener('click', resetMulti)
-//add event listeners for style buttons
-document.querySelector('.defaultStyle').addEventListener('click', function () {
-    imageStyle = 0;
-    document.querySelector('.manhang').style.backgroundImage = `url('${images[imageStyle][imageCount]}')`;
-    document.body.style.backgroundImage = "url('./images/sketch.png')"
-    document.body.style.backgroundColor = "rgb(255, 231, 153)"
-    document.body.style.fontFamily = "'Neucha', cursive"
-})
-document.querySelector('.seanStyle').addEventListener('click', function () {
-    imageStyle = 1;
-    document.querySelector('.manhang').style.backgroundImage = `url('${images[imageStyle][imageCount]}')`;
-    document.body.style.backgroundImage = "url('./images/sack.png')";
-    document.body.style.backgroundColor = "sandybrown"
-    document.body.style.fontFamily = "'Amatic SC', cursive"
-})
+
 //reset for solo play
 function resetSolo() {
     wordArray = [];
@@ -196,10 +184,33 @@ function resetSolo() {
     document.querySelector('.results').style.backgroundColor = '#d1c5c5';
     document.querySelector('.visualKeyboard').style.display = 'none';
     document.querySelector('.definition').style.display = 'none'
+    document.querySelector('.define').style.display = 'block'
     randomWord()
 }
+
+//add event listeners for style buttons
+
+//style 1
+document.querySelector('.defaultStyle').addEventListener('click', function () {
+    imageStyle = 0;
+    document.querySelector('.manhang').style.backgroundImage = `url('${images[imageStyle][imageCount]}')`;
+    document.body.style.backgroundImage = "url('./images/sketch.png')"
+    document.body.style.backgroundColor = "rgb(255, 231, 153)"
+    document.body.style.fontFamily = "'Neucha', cursive"
+})
+
+//style 2
+document.querySelector('.seanStyle').addEventListener('click', function () {
+    imageStyle = 1;
+    document.querySelector('.manhang').style.backgroundImage = `url('${images[imageStyle][imageCount]}')`;
+    document.body.style.backgroundImage = "url('./images/sack.png')";
+    document.body.style.backgroundColor = "sandybrown"
+    document.body.style.fontFamily = "'Amatic SC', cursive"
+})
+
 //event listener to trigger solo play
 document.querySelector('.single').addEventListener('click', soloMode)
+
 //solo mode toggle
 function soloMode() {
     document.querySelector('.single').removeEventListener('click', soloMode)
@@ -213,6 +224,7 @@ function soloMode() {
     document.querySelector('.define').style.display = "block"
     document.querySelector('.definition').style.display = 'none'
 }
+
 //multiplayer mode toggle
 function multiMode() {
     document.querySelector('.single').removeEventListener('click', multiMode)
@@ -226,7 +238,7 @@ function multiMode() {
     document.querySelector('.definition').style.display = 'none'
     reset.click()
 }
-//define empty variable where we will store a word to define(webster)
+//define empty variable where we will store a word to define using webster()
 let define = 'nothing';
 //gets a random 'word' from wordsapi
 function randomWord() {
@@ -242,7 +254,9 @@ function randomWord() {
         })
         .then(response => {
             console.log(response.word)
+            //save the word in a variable for use
             define = response.word
+            //uppercase to keep consistent with wordArray checking
             word = response.word.toUpperCase()
             //check if word is single word, no characters
             var letters = /^[A-Za-z]+$/;
@@ -256,34 +270,43 @@ function randomWord() {
                         return response.json()
                     })
                     .then(response => {
-                        //form validation variable, using regular expressions
+                        //variable defined using regular expressions for response validation
                         var letters = /^[A-Za-z]+$/;
                         console.log(response)
-                        //if response returns large array(aka not a word), use first word
+                        //if response returns large array(aka not a word according to webster), use first word
                         if (response.length > 1) {
                             console.log(response[0])
                             //if check made to accomodate varying responses
-                            if (response.length === 20) {
+                            if (response.length > 3) {
                                 //check if webster returned a word with just letters
                                 if (!response[0].match(letters)) {
                                     console.log('webster returned more than just one word')
+                                    //try again
                                     return randomWord()
+                                } else {
+                                    //set word to equal first entry
+                                    define = response[0]
                                 }
-                                define = response[0]
+                                //else, if response > 1 & < 20
                             } else {
                                 //check if webster returned a word with just letters
-                                if (!response[0].meta.stems[0].match(letters)) {
+                                if (!response[0].meta.id.match(letters)) {
                                     console.log('webster returned more than just one word')
-                                    return randomWord()  
+                                    //if not, try again
+                                    return randomWord()
                                 }
-                                define = response[0].meta.stems[0]
+                                //otherwise save the word
+                                define = response[0].meta.id
                             }
+                            //save word to be put in to wordArray to be compared later
                             word = define.toUpperCase()
                             //get the definition
                             webster()
                             console.log(word)
+                            //we've got a word, show the blanks, and keyboard
                             document.querySelector('.blanks').style.display = 'flex';
                             document.querySelector('.visualKeyboard').style.display = 'grid';
+                            //make blanks for each letter
                             for (i = 0; i < word.length; i++) {
                                 wordArray.push(word[i]);
                                 let blank = document.createElement('p');
@@ -292,14 +315,17 @@ function randomWord() {
                                 blank.className = `blank${i + 1}`
                                 document.querySelector('.blanks').appendChild(blank)
                             }
+                            //turn the keyboard listener on
                             document.body.addEventListener('keypress', addKeyClick)
+
                             //else use word given
                         } else if (response.length === 1) {
                             console.log('its a real word', response[0].shortdef)
-                            def = response[0].shortdef;
                             console.log(word)
+                            //we've got a word, show blanks and keyboard
                             document.querySelector('.blanks').style.display = 'flex';
                             document.querySelector('.visualKeyboard').style.display = 'grid';
+                            //make blanks for each letter
                             for (i = 0; i < word.length; i++) {
                                 wordArray.push(word[i]);
                                 let blank = document.createElement('p');
@@ -308,6 +334,7 @@ function randomWord() {
                                 blank.className = `blank${i + 1}`
                                 document.querySelector('.blanks').appendChild(blank)
                             }
+                            //turn keyboard listener on
                             document.body.addEventListener('keypress', addKeyClick)
                         }
 
@@ -319,13 +346,16 @@ function randomWord() {
             console.log(err);
         });
 }
+//function to show definition section in html
 function showdef() {
     document.querySelector('.definition').style.display = 'block'
     document.querySelector('.define').style.display = 'none'
 }
+//add event listeners to description button
 document.querySelector('.define').addEventListener('click', showdef)
 document.querySelector('.define').addEventListener('click', webster)
 
+//finds definiton and puts it into definition section
 function webster() {
     fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${define}?key=8d012909-4bf9-45f5-86df-ccdc1e275d84`)
         .then(response => {
