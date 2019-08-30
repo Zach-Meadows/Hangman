@@ -198,7 +198,7 @@ function resetSolo() {
     document.querySelector('.results').style.display = 'none';
     document.querySelector('.results').style.backgroundColor = '#d1c5c5';
     document.querySelector('.visualKeyboard').style.display = 'none';
-
+    document.querySelector('.definition').style.display = 'none'
     randomWord()
 }
 //event listener to trigger solo play
@@ -206,7 +206,7 @@ document.querySelector('.single').addEventListener('click', soloMode)
 //solo mode toggle
 function soloMode() {
     document.querySelector('.single').removeEventListener('click', soloMode)
-    document.querySelector('.single').innerHTML = "Multi Player";
+    document.querySelector('.single').innerHTML = "Toggle Players</br><b>Single</b>";
     document.querySelector('.single').style.backgroundColor = 'green';
     randomWord()
     document.querySelector('.single').addEventListener('click', multiMode)
@@ -219,7 +219,7 @@ function soloMode() {
 //multiplayer mode toggle
 function multiMode() {
     document.querySelector('.single').removeEventListener('click', multiMode)
-    document.querySelector('.single').innerHTML = "Single Player";
+    document.querySelector('.single').innerHTML = "Toggle Players</br><b>Multi</b>";
     document.querySelector('.single').style.backgroundColor = 'rgb(40, 241, 255)';
     document.querySelector('.single').addEventListener('click', soloMode)
     document.querySelector('.wordChoice').style.display = 'inline';
