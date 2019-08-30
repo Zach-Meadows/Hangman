@@ -36,5 +36,10 @@ Features that could be added later
   - include timer
   - subtract points for wrong letter or using hint
 - animate hangman pictures changing
+  - have pictures sweep/flip in
+  - have short video of someone actually drawing the figure
 - animate win/lose messages
 - have modal message instead of alerts for letters already guessed
+- add magic mode so players can guess Magic: the Gathering card names
+- have an executioner ask "any last words?" and hangman says the word being guessed.
+- allow player to pick a category for single player random word generator
