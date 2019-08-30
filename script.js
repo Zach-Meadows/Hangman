@@ -198,6 +198,7 @@ function resetSolo() {
     document.querySelector('.results').style.display = 'none';
     document.querySelector('.results').style.backgroundColor = '#d1c5c5';
     document.querySelector('.visualKeyboard').style.display = 'none';
+    
     randomWord()
 }
 //event listener to trigger solo play
@@ -206,12 +207,14 @@ document.querySelector('.single').addEventListener('click', soloMode)
 function soloMode(){
     document.querySelector('.single').removeEventListener('click', soloMode)
     document.querySelector('.single').innerHTML = "Multi Player";
-    document.querySelector('.single').style.backgroundColor = 'blue';
+    document.querySelector('.single').style.backgroundColor = 'green';
     randomWord()
     document.querySelector('.single').addEventListener('click', multiMode)
     document.querySelector('.wordChoice').style.display = 'none';
     reset.removeEventListener('click', resetMulti)
-    reset.addEventListener('click', resetSolo)   
+    reset.addEventListener('click', resetSolo) 
+    document.querySelector('.define').style.display = "block" 
+    document.querySelector('.definition').style.display = 'none' 
 }
 //multiplayer mode toggle
 function multiMode(){
@@ -222,6 +225,8 @@ function multiMode(){
     document.querySelector('.wordChoice').style.display = 'inline';
     reset.removeEventListener('click', resetSolo)
     reset.addEventListener('click', resetMulti)
+    document.querySelector('.define').style.display = "none" 
+    document.querySelector('.definition').style.display = 'none' 
     reset.click()
 }
 //define empty variable where we will store a word to define(webster)
@@ -256,7 +261,7 @@ function randomWord() {
                     .then(response => {
                         console.log(response)
                         //if response returns large array(aka not a word), use first word
-                        if (response.length === 20) {
+                        if (response.length > 1) {
                             console.log(response[0])
                             define = response[0]
                             word = response[0].toUpperCase()
@@ -299,6 +304,11 @@ function randomWord() {
             console.log(err);
         });
 }
+function showdef(){
+    document.querySelector('.definition').style.display = 'block'
+    document.querySelector('.define').style.display = 'none'
+}
+document.querySelector('.define').addEventListener('click', showdef)
 document.querySelector('.define').addEventListener('click', webster)
 
 function webster() {
@@ -308,7 +318,6 @@ function webster() {
         })
         .then(response => {
             console.log(response[0].shortdef[0])
-            shortdef = response[0].shortdef[0]
-
+            document.querySelector('.definition').innerHTML = response[0].shortdef[0]
         })
 }

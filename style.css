@@ -140,3 +140,22 @@ button:hover {
     font-family: 'Amatic SC', cursive;
     font-size: 20px;
 }
+.define {
+    display: none;
+    padding: 4px;
+    margin: 4px;
+    background-color: rgb(40, 241, 255);
+    border: solid white 2px;
+    border-radius: 8px;
+}
+.definition {
+    display: none;
+    background-color: #d1c5c5;
+    padding: 8px;
+    border: solid white 2px;
+    border-radius: 20px;
+    font-size: 17px;
+}
+.hintbox {
+    display: flex;
+}
