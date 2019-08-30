@@ -159,3 +159,13 @@ button:hover {
 .hintbox {
     display: flex;
 }
+footer {
+    margin: 25px auto 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo {
+    margin: 5px;
+    height: 50px;
+}
