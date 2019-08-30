@@ -38,10 +38,10 @@ function genCharArray(charA, charZ) {
         key.appendChild(letter);
         //given a class to make it easier to manipulate in the DOM
         key.className = `key ${String.fromCharCode(a)}`
-
         //add event listener to each key
         key.addEventListener('click', function (evt) {
             checkLetter = evt.target.innerText
+            //check if letter has been guessed, if no put it in used letter array
             if (usedLetter.includes(checkLetter)) {
                 return alert('you have already guessed that letter, please choose a different one.')
             } else {
@@ -86,9 +86,6 @@ function genCharArray(charA, charZ) {
                     document.body.removeEventListener('keypress', addKeyClick)
                     document.querySelector('.results').style.display = 'flex';
                     document.querySelector('.results').style.backgroundColor = 'rgb(255, 94, 94)';
-                    // document.querySelector(`.blank${i + 1}`).innerText = word[i]
-
-
                 }
 
             }
