@@ -369,3 +369,6 @@ function webster() {
             document.querySelector('.definition').innerHTML = response[0].shortdef[0]
         })
 }
+
+//ADD MAGIC MODE!
+
