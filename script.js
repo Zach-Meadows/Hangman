@@ -370,5 +370,98 @@ function webster() {
         })
 }
 
-//ADD MAGIC MODE!
+//----------------ADD MAGIC MODE!----------------------
+//-----------------------------------------------------
 
+//hidden magic mode code
+document.body.addEventListener('keydown', castWW)
+let keySequence = 0;
+function castWW(evt) {
+    let warpWorld = ['5', 'r', 'r', 'r', 'w', 'a', 'r', 'p', 'w', 'o', 'r', 'l', 'd'];
+    if (evt.key === '5') {
+        keySequence = 1;
+        console.log('starting right')
+    }
+    else if (evt.key === warpWorld[keySequence]) {
+        keySequence++
+        console.log('pressed the right letter')
+    } else {
+        console.log('wrong letter')
+        keySequence = 0
+    }
+    if (keySequence === warpWorld.length) {
+        console.log('cast warp world');
+        document.body.style.backgroundImage = "url('./images/warpworld.jpg')"
+        randomCard()
+        document.querySelector('.container').style.display = 'none';
+        document.querySelector('.card').style.display = 'flex'
+        document.getElementsByTagName('footer')[0].style.display = 'none';
+        document.getElementsByTagName('h1')[0].innerHTML = 'Magic Card Guessing Game'
+        document.getElementsByTagName('h1')[0].style.color = 'cyan';
+        document.getElementsByTagName('h1')[0].style.textShadow = '3px 1px 0 blue'
+        document.getElementsByTagName('h2')[0].style.color = 'cyan';
+        document.getElementsByTagName('h2')[0].style.textShadow = '3px 1px 0 blue'
+    }
+}
+//konami code breadcrumb
+let kCount = 0;
+document.body.addEventListener('keydown', konamiCode)
+function konamiCode(evt) {
+    let konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a', 'Enter']
+    
+    if (evt.key === 'ArrowUp' && kCount != 1) {
+        kCount = 1;
+    } else if (evt.key === konami[kCount]) {
+        kCount++
+    } else {
+        kCount = 0;
+    }
+    if (kCount === konami.length) {
+        modal.style.display = "block"
+    }
+}
+//event listener to show parts of card
+document.querySelector('.magic').addEventListener('click', function (evt) {
+    evt.target.style.display = 'none';
+})
+
+//random card fetch (modern only)
+function randomCard() {
+    for (let i = 0; i < document.querySelector('.magic').children.length; i++) {
+        document.querySelector('.magic').children[i].style.display = 'flex'
+    }
+    fetch('https://api.scryfall.com/cards/random')
+        .then(response => {
+            return response.json()
+        })
+        .then(response => {
+            console.log(response)
+            if (response.legalities.modern === 'not_legal') {
+                return randomCard()
+            }
+            document.querySelector('.magic').style.backgroundImage = `url('${response.image_uris.normal}')`
+        })
+        .catch(err => console.log(err))
+}
+document.querySelector('.newCard').addEventListener('click', function(){
+    
+    randomCard() 
+})
+//modal code
+// Get the modal
+var modal = document.getElementById("myModal");
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+//END modal code

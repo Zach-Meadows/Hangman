@@ -23,9 +23,6 @@ h2 {
     text-shadow: 3px 1px 0 rgb(173, 113, 1);
     font-size: 27px;
 }
-/* div {
-     border: solid black 1px; 
-} */
 .container {
     margin: 35px;
     display: flex;
@@ -172,3 +169,112 @@ footer {
     margin: 5px;
     height: 50px;
 }
+.magic {
+    border: solid black 1px;
+    width: 250px;
+    height: 350px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: grid;
+    grid-template-rows: 38px 157px 23px 93px 39px;
+    grid-template-columns: 64px 64px 47px 38px 37px;
+}
+.magic > div {
+    border: solid black 1px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: rgba(128, 128, 250, 0.418);
+}
+.card {
+    flex-direction: column;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    margin: 30px;
+}
+.name {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+}
+.cmc {
+    grid-row-start: 1;
+    grid-column-start: 4;
+    grid-column-end: 6;
+}
+.art {
+    grid-row-start: 2;
+    grid-column-start: 1;
+    grid-column-end: 6;
+}
+.type {
+    grid-row-start: 3;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+.setSymbol {
+    grid-row-start: 3;
+    grid-column-start: 4;
+    grid-column-end: 6;
+}
+.cardText {
+    grid-row-start: 4;
+    grid-column-start: 1;
+    grid-column-end: 6;
+}
+.artist {
+    grid-row-start: 5;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+.PT {
+    grid-row-start: 5;
+    grid-column-start: 4;
+    grid-column-end: 6;
+}
+.newCard {
+    margin: 5px;
+    background-color: black;
+    border: solid cyan 2px;
+    border-radius: 5px;
+    color: white;
+}
+/* modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
