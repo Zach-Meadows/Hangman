@@ -528,10 +528,6 @@ function konamiCode(evt) {
         modal.style.display = "block"
     }
 }
-//event listener to show parts of card
-document.querySelector('.magic').addEventListener('click', function (evt) {
-    evt.target.style.display = 'none';
-})
 
 let magicWord = '';
 let magicWordArray = [];
