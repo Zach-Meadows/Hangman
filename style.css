@@ -169,6 +169,7 @@ footer {
     margin: 5px;
     height: 50px;
 }
+/* START MAGIC STYLING */
 .magic {
     border: solid black 1px;
     width: 250px;
@@ -185,14 +186,14 @@ footer {
     justify-content: center;
     align-items: center;
     display: flex;
-    background-color: rgba(128, 128, 250, 0.418);
+    background-color: cyan;
 }
 .card {
     flex-direction: column;
     display: none;
     align-items: center;
     justify-content: center;
-    margin: 30px;
+    margin: 10px;
 }
 .name {
     grid-column-start: 1;
@@ -236,11 +237,45 @@ footer {
 }
 .newCard {
     margin: 5px;
+    padding: 10px 30px;
     background-color: black;
     border: solid cyan 2px;
     border-radius: 5px;
     color: white;
 }
+.magicvisualKeyboard {
+    border-radius: 10px;
+    padding: 4px;
+    background-color: #d1c5c5;
+    position: relative;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-gap: 3px;
+    grid-template-columns: 40px 40px 40px 40px 40px 40px;
+}
+.magickey {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(40, 241, 255);
+    padding: 2px 10px;
+    margin: 5px 10px;
+    border: solid black 1px;
+    border-radius: 10px; 
+}
+.magickey:hover {
+    background-color: blue;
+}
+.magicy {
+    grid-column-start: 3;
+}
+.magicz {
+    grid-column-start: 4;
+}
+.magicblanks {
+    margin: 10px;
+}
+
 /* modal styles */
 .modal {
     display: none; /* Hidden by default */

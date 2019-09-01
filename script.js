@@ -373,6 +373,104 @@ function webster() {
 //----------------ADD MAGIC MODE!----------------------
 //-----------------------------------------------------
 
+//copied code and added 'magic' to differentiate
+let revealCard = ['.PT', '.setSymbol', '.cmc', '.artist', '.type', '.art', '.cardText']
+let piecesRevealed = 0;
+let magicLetterCount = 0;
+//define an empty array to store used letters
+let magicUsedLetter = [];
+// define MAGIC KEYBOARD
+function magicKey(charA, charZ) {
+    a = charA.charCodeAt(0);
+    z = charZ.charCodeAt(0);
+    //loop that adds features for each letter in the alphabet 
+    for (; a <= z; ++a) {
+        //capitalize each letter
+        let capital = String.fromCharCode(a).toUpperCase()
+        //series of commands that append keys to visual keyboard, including an event listener for each key.
+        let key = document.createElement('p');
+        let letter = document.createTextNode(`${capital}`)
+        key.appendChild(letter);
+        //given a class to make it easier to manipulate in the DOM
+        key.className = `magickey magic${String.fromCharCode(a)}`
+        //add event listener to each key
+        key.addEventListener('click', function (evt) {
+            checkLetter = evt.target.innerText
+            //check if letter has been guessed, if not, put it in usedLetter array
+            if (magicUsedLetter.includes(checkLetter)) {
+                return alert('you have already guessed that letter, please choose a different one.')
+            } else {
+                magicUsedLetter.push(checkLetter)
+            }
+            //check if pressed letter is in word
+            if (magicWordArray.includes(checkLetter)) {
+                evt.target.style.backgroundColor = 'rgb(97, 204, 97)';
+                //run through word and put letters in correct spots
+                magicWordArray.forEach(function (element, i) {
+                    if (element === checkLetter) {
+                        magicLetterCount++
+                        document.querySelector(`.magicblank${i + 1}`).innerText = element
+                        //CHECK IF WON
+                        if (magicLetterCount === magicWordArray.length) {
+                            for (let i = 0; i < document.querySelector('.magic').children.length; i++) {
+                                document.querySelector('.magic').children[i].style.display = 'none'
+                            }
+                            document.querySelector('.newCard').removeEventListener('click', randomCard)
+                            document.querySelector('.newCard').innerHTML = 'new card in 3 seconds'
+                            document.querySelector('.newCard').style.backgroundColor = 'red';
+                            setTimeout(twoSeconds, 1000)
+                            setTimeout(oneSecond, 2000)
+                            setTimeout(newCardTimed, 3000)
+                            // document.querySelector('.magicvisualKeyboard').style.display = 'none';
+                            // document.body.removeEventListener('keypress', magicAddKeyClick)
+                        }
+                    }
+                })
+                //if letter is not in word, do this
+            } else {
+                evt.target.style.backgroundColor = 'rgb(255, 94, 94)';
+                document.querySelector(`${revealCard[piecesRevealed]}`).style.display = 'none';
+                piecesRevealed++
+                //CHECK IF LOST
+                if (piecesRevealed === revealCard.length) {
+                    for (let i = 0; i < document.querySelector('.magic').children.length; i++) {
+                        document.querySelector('.magic').children[i].style.display = 'none'
+                    }
+                    //loop to assign all letters 
+                    magicWordArray.forEach(function (element, i) {
+                        document.querySelector(`.magicblank${i + 1}`).innerText = element
+                    })
+                    document.querySelector('.newCard').removeEventListener('click', randomCard)
+                    document.querySelector('.newCard').innerHTML = 'new card in 3 seconds'
+                    document.querySelector('.newCard').style.backgroundColor = 'red';
+                    setTimeout(twoSeconds, 1000)
+                    setTimeout(oneSecond, 2000)
+                    setTimeout(newCardTimed, 3000)
+                    // document.body.removeEventListener('keypress', magicAddKeyClick);
+                }
+
+            }
+        })
+        //after assigning all values to a single key, append it.
+        document.querySelector('.magicvisualKeyboard').appendChild(key)
+    }
+}
+magicKey('a', 'z');
+
+//functions defined for timeouts to change button text
+function twoSeconds(){
+    document.querySelector('.newCard').innerHTML = "New Card in 2 seconds";
+}
+function oneSecond(){
+    document.querySelector('.newCard').innerHTML = "New Card in 1 second";
+}
+
+function magicAddKeyClick(evt) {
+    //add event listener to document to click visual keyboard on keypress.
+    evt.preventDefault()
+    document.querySelector(`.magic${evt.key}`).click()
+}
+
 //hidden magic mode code
 document.body.addEventListener('keydown', castWW)
 let keySequence = 0;
@@ -380,13 +478,10 @@ function castWW(evt) {
     let warpWorld = ['5', 'r', 'r', 'r', 'w', 'a', 'r', 'p', 'w', 'o', 'r', 'l', 'd'];
     if (evt.key === '5') {
         keySequence = 1;
-        console.log('starting right')
     }
     else if (evt.key === warpWorld[keySequence]) {
         keySequence++
-        console.log('pressed the right letter')
     } else {
-        console.log('wrong letter')
         keySequence = 0
     }
     if (keySequence === warpWorld.length) {
@@ -401,14 +496,21 @@ function castWW(evt) {
         document.getElementsByTagName('h1')[0].style.textShadow = '3px 1px 0 blue'
         document.getElementsByTagName('h2')[0].style.color = 'cyan';
         document.getElementsByTagName('h2')[0].style.textShadow = '3px 1px 0 blue'
+        document.body.removeEventListener('keydown', castWW)
+        document.body.removeEventListener('keydown', konamiCode)
+        setTimeout(addKeyboard, 1000)
+
     }
+}
+function addKeyboard() {
+    document.body.addEventListener('keypress', magicAddKeyClick)
 }
 //konami code breadcrumb
 let kCount = 0;
 document.body.addEventListener('keydown', konamiCode)
 function konamiCode(evt) {
     let konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a', 'Enter']
-    
+
     if (evt.key === 'ArrowUp' && kCount != 1) {
         kCount = 1;
     } else if (evt.key === konami[kCount]) {
@@ -425,28 +527,72 @@ document.querySelector('.magic').addEventListener('click', function (evt) {
     evt.target.style.display = 'none';
 })
 
+let magicWord = '';
+let magicWordArray = [];
 //random card fetch (modern only)
 function randomCard() {
+    piecesRevealed = 0;
+    usedLetter = [];
+    magicUsedLetter = [];
     for (let i = 0; i < document.querySelector('.magic').children.length; i++) {
         document.querySelector('.magic').children[i].style.display = 'flex'
     }
+    magicWordArray = [];
+    document.querySelector('.magicblanks').innerHTML = null;
+    let children = document.querySelectorAll('.magickey')
+    for (let i = 0; i < children.length; i++) {
+        children[i].style.backgroundColor = 'cyan';
+    }
+    magicLetterCount = 0;
+
     fetch('https://api.scryfall.com/cards/random')
         .then(response => {
             return response.json()
         })
         .then(response => {
-            console.log(response)
             if (response.legalities.modern === 'not_legal') {
                 return randomCard()
             }
+            magicWord = response.name.toUpperCase();
+
             document.querySelector('.magic').style.backgroundImage = `url('${response.image_uris.normal}')`
+            // code copy from submit event listener
+            var letters = /^[A-Za-z]+$/;
+
+            document.querySelector('.magicblanks').style.display = 'flex';
+            document.querySelector('.visualKeyboard').style.display = 'grid';
+            //loop through the word putting each letter in to an array seperately
+            for (i = 0; i < magicWord.length; i++) {
+                magicWordArray.push(magicWord[i]);
+                let blank = document.createElement('p');
+                let empty;
+                if (magicWord[i].match(letters)) {
+                    empty = document.createTextNode('_')
+                } else if (magicWord[i] === " ") {
+                    empty = document.createTextNode(` `)
+                    magicLetterCount++
+                    blank.style.margin = "20px";
+                } else {
+                    magicLetterCount++
+                    empty = document.createTextNode(`${magicWord[i]}`)
+                }
+                blank.appendChild(empty);
+                blank.className = `magicblank${i + 1}`
+                document.querySelector('.magicblanks').appendChild(blank)
+            }
+            document.body.addEventListener('keypress', addKeyClick)
         })
         .catch(err => console.log(err))
 }
-document.querySelector('.newCard').addEventListener('click', function(){
-    
-    randomCard() 
-})
+document.querySelector('.newCard').addEventListener('click', randomCard)
+
+function newCardTimed() {
+    document.querySelector('.newCard').innerHTML = "New Card (modern only)";
+    document.querySelector('.newCard').style.backgroundColor = 'black';
+    document.querySelector('.newCard').addEventListener('click', randomCard)
+    document.querySelector('.newCard').click()
+}
+
 //modal code
 // Get the modal
 var modal = document.getElementById("myModal");
@@ -455,13 +601,13 @@ var btn = document.getElementById("myBtn");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
+span.onclick = function () {
+    modal.style.display = "none";
 }
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
 //END modal code
