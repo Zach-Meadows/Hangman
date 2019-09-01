@@ -29,17 +29,17 @@ Current Bugs and possible future solutions
 
 Features that could be added later
 ---------------------
-- allow user/API to input phrases, multiple words, words that include hyphens or apostrophes
+- [ ] allow user/API to input phrases, multiple words, words that include hyphens or apostrophes
   - make sure special characters/spaces are displayed rather than being guessed
   - make sure special characters/spaces don't count toward word checking and word printing
-- keep score of player performance
+- [ ] keep score of player performance
   - include timer
   - subtract points for wrong letter or using hint
-- animate hangman pictures changing
+- [ ] animate hangman pictures changing
   - have pictures sweep/flip in
   - have short video of someone actually drawing the figure
-- animate win/lose messages
-- have modal message instead of alerts for letters already guessed
-- add magic mode so players can guess Magic: the Gathering card names
-- have an executioner ask "any last words?" and hangman says the word being guessed.
-- allow player to pick a category for single player random word generator
+- [ ] animate win/lose messages
+- [ ] have modal message instead of alerts for letters already guessed
+- [x] add magic mode so players can guess Magic: the Gathering card names
+- [ ] have an executioner ask "any last words?" and hangman says the word being guessed.
+- [ ] allow player to pick a category for single player random word generator
