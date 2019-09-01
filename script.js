@@ -105,9 +105,15 @@ input.addEventListener("keypress", function (evt) {
 //declare word and word array in global scope
 let word;
 let wordArray = [];
+
 //add event listener for submit button
 submit.addEventListener("click", function () {
 
+    //conditional for warp world
+    if (input.value === '5rrr warp world') {
+        keySequence = 12;
+        return castWW({key:'d'});
+    }
     //assign input word to a variable
     word = input.value.toUpperCase();
 
@@ -482,7 +488,7 @@ function castWW(evt) {
     else if (evt.key === warpWorld[keySequence]) {
         keySequence++
     } else {
-        keySequence = 0
+        keySequence = 0;
     }
     if (keySequence === warpWorld.length) {
         console.log('cast warp world');
