@@ -112,7 +112,7 @@ submit.addEventListener("click", function () {
     //conditional for warp world
     if (input.value === '5rrr warp world') {
         keySequence = 12;
-        return castWW({key:'d'});
+        return castWW({ key: 'd' });
     }
     //assign input word to a variable
     word = input.value.toUpperCase();
@@ -468,10 +468,10 @@ function magicKey(charA, charZ) {
 magicKey('a', 'z');
 
 //functions defined for timeouts to change button text
-function twoSeconds(){
+function twoSeconds() {
     document.querySelector('.newCard').innerHTML = "New Card in 2 seconds";
 }
-function oneSecond(){
+function oneSecond() {
     document.querySelector('.newCard').innerHTML = "New Card in 1 second";
 }
 
@@ -529,9 +529,24 @@ function konamiCode(evt) {
         kCount = 0;
     }
     if (kCount === konami.length) {
+        document.querySelector(".modal-content").children[1].innerHTML = "Your mind must be warped if you think that's the right code.</br>What world do you think this is?"
         modal.style.display = "block"
     }
 }
+//webster breadcrumb
+document.querySelector(".logo").addEventListener('click', websterWW)
+let websterWarp = 0;
+function websterWW() {
+    if (websterWarp < 8) {
+        websterWarp++
+    } 
+    if (websterWarp === 8) {
+        document.querySelector(".modal-content").children[1].innerHTML ="Each player shuffles all permanents they own into their library, then reveals that many cards from the top of their library. Each player puts all artifact, creature, and land cards revealed this way onto the battlefield, then does the same for enchantment cards, then puts all cards revealed this way that weren't put onto the battlefield on the bottom of their library."
+        modal.style.display = "block"
+        document.querySelector(".logo").removeEventListener('click', websterWW)
+    }
+}
+
 
 let magicWord = '';
 let magicWordArray = [];
@@ -594,6 +609,7 @@ function randomCard() {
 }
 document.querySelector('.newCard').addEventListener('click', randomCard)
 
+// reset new card button after timer
 function newCardTimed() {
     document.querySelector('.newCard').innerHTML = "New Card (modern only)";
     document.querySelector('.newCard').style.backgroundColor = 'black';
