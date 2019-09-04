@@ -421,6 +421,8 @@ function magicKey(charA, charZ) {
                             for (let i = 0; i < document.querySelector('.magic').children.length; i++) {
                                 document.querySelector('.magic').children[i].style.display = 'none'
                             }
+                            document.querySelector('.magicblanks').style.border = "solid rgb(43, 216, 0) 5px"
+                            document.querySelector('.magic').style.border = "solid rgb(43, 216, 0) 5px"
                             document.querySelector('.newCard').removeEventListener('click', randomCard)
                             document.querySelector('.newCard').innerHTML = 'new card in 3 seconds'
                             document.querySelector('.newCard').style.backgroundColor = 'red';
@@ -446,6 +448,8 @@ function magicKey(charA, charZ) {
                     magicWordArray.forEach(function (element, i) {
                         document.querySelector(`.magicblank${i + 1}`).innerText = element
                     })
+                    document.querySelector('.magicblanks').style.border = "solid red 5px"
+                    document.querySelector('.magic').style.border = "solid red 5px"
                     document.querySelector('.newCard').removeEventListener('click', randomCard)
                     document.querySelector('.newCard').innerHTML = 'new card in 3 seconds'
                     document.querySelector('.newCard').style.backgroundColor = 'red';
@@ -533,6 +537,8 @@ let magicWord = '';
 let magicWordArray = [];
 //random card fetch (modern only)
 function randomCard() {
+    document.querySelector('.magic').style.border = "solid black 1px"
+    document.querySelector('.magicblanks').style.border = "solid #f8f7f7 2px"
     piecesRevealed = 0;
     usedLetter = [];
     magicUsedLetter = [];
