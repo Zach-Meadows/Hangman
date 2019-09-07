@@ -584,6 +584,7 @@ function randomCard() {
 
             document.querySelector('.magicblanks').style.display = 'flex';
             document.querySelector('.visualKeyboard').style.display = 'grid';
+            // let gridStart = 1;
             //loop through the word putting each letter in to an array seperately
             for (i = 0; i < magicWord.length; i++) {
                 magicWordArray.push(magicWord[i]);
@@ -591,16 +592,20 @@ function randomCard() {
                 let empty;
                 if (magicWord[i].match(letters)) {
                     empty = document.createTextNode('_')
+                    // blank.style.gridRowStart = gridStart
                 } else if (magicWord[i] === " ") {
-                    empty = document.createTextNode(` `)
+                    empty = document.createTextNode(``)
                     magicLetterCount++
+                    // gridStart++
+                    // blank.style.gridRowStart = gridStart
                     blank.style.margin = "20px";
                 } else {
                     magicLetterCount++
+                    // blank.style.gridRowStart = gridStart
                     empty = document.createTextNode(`${magicWord[i]}`)
                 }
                 blank.appendChild(empty);
-                blank.className = `magicblank${i + 1}`
+                blank.className = `magicP magicblank${i + 1}` // may want to space out the number? ---------------
                 document.querySelector('.magicblanks').appendChild(blank)
             }
             document.body.addEventListener('keypress', addKeyClick)
