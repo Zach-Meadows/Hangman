@@ -274,12 +274,10 @@ footer {
 }
 .magicblanks {
     margin: 10px;
-    max-width: 100%;
 }
 .magicP {
     font-size: 25px;
 }
-
 /* modal styles */
 .modal {
     display: none; /* Hidden by default */

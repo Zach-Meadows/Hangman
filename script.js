@@ -593,9 +593,12 @@ function randomCard() {
                 if (magicWord[i].match(letters)) {
                     empty = document.createTextNode('_')
                     // blank.style.gridRowStart = gridStart
+                    blank.appendChild(empty);
                 } else if (magicWord[i] === " ") {
-                    empty = document.createTextNode(``)
+                    // empty = document.createTextNode(`&nbsp;`)
+                    empty = document.createTextNode('')
                     magicLetterCount++
+                    blank.appendChild(empty)
                     // gridStart++
                     // blank.style.gridRowStart = gridStart
                     blank.style.margin = "20px";
@@ -603,8 +606,10 @@ function randomCard() {
                     magicLetterCount++
                     // blank.style.gridRowStart = gridStart
                     empty = document.createTextNode(`${magicWord[i]}`)
+                    blank.appendChild(empty);
                 }
-                blank.appendChild(empty);
+
+                
                 blank.className = `magicP magicblank${i + 1}` // may want to space out the number? ---------------
                 document.querySelector('.magicblanks').appendChild(blank)
             }
