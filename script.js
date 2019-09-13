@@ -568,17 +568,15 @@ function randomCard() {
     }
     magicLetterCount = 0;
 
-    fetch('https://api.scryfall.com/cards/random')
+    fetch('https://mtg-rules.herokuapp.com/api/cards/random')
         .then(response => {
             return response.json()
         })
         .then(response => {
-            if (response.legalities.modern === 'not_legal') {
-                return randomCard()
-            }
+           
             magicWord = response.name.toUpperCase();
 
-            document.querySelector('.magic').style.backgroundImage = `url('${response.image_uris.normal}')`
+            document.querySelector('.magic').style.backgroundImage = `url('${response.image}')`
             // code copy from submit event listener
             var letters = /^[A-Za-z]+$/;
 
