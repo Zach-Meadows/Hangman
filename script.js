@@ -575,7 +575,8 @@ function randomCard() {
         .then(response => {
            
             magicWord = response.name.toUpperCase();
-
+            let mtgWordSplit = magicWord.split(" ")
+            
             document.querySelector('.magic').style.backgroundImage = `url('${response.image}')`
             // code copy from submit event listener
             var letters = /^[A-Za-z]+$/;
@@ -584,33 +585,59 @@ function randomCard() {
             document.querySelector('.visualKeyboard').style.display = 'grid';
             // let gridStart = 1;
             //loop through the word putting each letter in to an array seperately
-            for (i = 0; i < magicWord.length; i++) {
-                magicWordArray.push(magicWord[i]);
-                let blank = document.createElement('p');
-                let empty;
-                if (magicWord[i].match(letters)) {
-                    empty = document.createTextNode('_')
-                    // blank.style.gridRowStart = gridStart
-                    blank.appendChild(empty);
-                } else if (magicWord[i] === " ") {
-                    // empty = document.createTextNode(`&nbsp;`)
-                    empty = document.createTextNode('')
-                    magicLetterCount++
-                    blank.appendChild(empty)
-                    // gridStart++
-                    // blank.style.gridRowStart = gridStart
-                    blank.style.margin = "20px";
-                } else {
-                    magicLetterCount++
-                    // blank.style.gridRowStart = gridStart
-                    empty = document.createTextNode(`${magicWord[i]}`)
-                    blank.appendChild(empty);
-                }
+            let letterId = 0
+            mtgWordSplit.forEach(function(word){
+                let wordContain = document.createElement('div');
+                wordContain.className = "mtgWordContain"
+                for (i = 0; i < word.length; i++) {
+                    magicWordArray.push(word[i]);
+                    let blank = document.createElement('p');
+                    let empty;
+                    if (word[i].match(letters)) {
+                        empty = document.createTextNode('_')
+                        // blank.style.gridRowStart = gridStart
+                        blank.appendChild(empty);
+                    } else {
+                        magicLetterCount++
+                        // blank.style.gridRowStart = gridStart
+                        empty = document.createTextNode(`${word[i]}`)
+                        blank.appendChild(empty);
+                    }
+
+                    blank.className = `magicP magicblank${letterId + 1}` // may want to space out the number? ---------------
+                    letterId++
+                    wordContain.appendChild(blank)
+                    
+            }
+            document.querySelector('.magicblanks').appendChild(wordContain)
+        })
+            // for (i = 0; i < magicWord.length; i++) {
+            //     magicWordArray.push(magicWord[i]);
+            //     let blank = document.createElement('p');
+            //     let empty;
+            //     if (magicWord[i].match(letters)) {
+            //         empty = document.createTextNode('_')
+            //         // blank.style.gridRowStart = gridStart
+            //         blank.appendChild(empty);
+            //     } else if (magicWord[i] === " ") {
+            //         // empty = document.createTextNode(`&nbsp;`)
+            //         empty = document.createTextNode('')
+            //         magicLetterCount++
+            //         blank.appendChild(empty)
+            //         // gridStart++
+            //         // blank.style.gridRowStart = gridStart
+            //         blank.style.margin = "20px";
+            //     } else {
+            //         magicLetterCount++
+            //         // blank.style.gridRowStart = gridStart
+            //         empty = document.createTextNode(`${magicWord[i]}`)
+            //         blank.appendChild(empty);
+            //     }
 
                 
-                blank.className = `magicP magicblank${i + 1}` // may want to space out the number? ---------------
-                document.querySelector('.magicblanks').appendChild(blank)
-            }
+            //     blank.className = `magicP magicblank${i + 1}` // may want to space out the number? ---------------
+            //     document.querySelector('.magicblanks').appendChild(blank)
+            // }
             document.body.addEventListener('keypress', addKeyClick)
         })
         .catch(err => console.log(err))

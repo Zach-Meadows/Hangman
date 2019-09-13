@@ -274,9 +274,17 @@ footer {
 }
 .magicblanks {
     margin: 10px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .magicP {
     font-size: 25px;
+    margin: 5px;
+}
+.mtgWordContain{
+    display: flex;
+    margin: 10px;
 }
 /* modal styles */
 .modal {
