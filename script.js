@@ -546,98 +546,115 @@ function magicAddKeyClick(evt) {
   document.querySelector(`.magic${evt.key}`).click();
 }
 
-//hidden magic mode code
-document.body.addEventListener("keydown", castWW);
-let keySequence = 0;
-function castWW(evt) {
-  let warpWorld = [
-    "5",
-    "r",
-    "r",
-    "r",
-    "w",
-    "a",
-    "r",
-    "p",
-    "w",
-    "o",
-    "r",
-    "l",
-    "d"
-  ];
-  if (evt.key === "5") {
-    keySequence = 1;
-  } else if (evt.key === warpWorld[keySequence]) {
-    keySequence++;
-  } else {
-    keySequence = 0;
-  }
-  if (keySequence === warpWorld.length) {
-    console.log("cast warp world");
-    document.body.style.backgroundImage = "url('./images/warpworld.jpg')";
-    randomCard();
-    document.querySelector(".container").style.display = "none";
-    document.querySelector(".card").style.display = "flex";
-    document.getElementsByTagName("footer")[0].style.display = "none";
-    document.getElementsByTagName("h1")[0].innerHTML =
-      "Magic Card Guessing Game";
-    document.getElementsByTagName("h1")[0].style.color = "cyan";
-    document.getElementsByTagName("h1")[0].style.textShadow = "3px 1px 0 blue";
-    document.getElementsByTagName("h2")[0].style.color = "cyan";
-    document.getElementsByTagName("h2")[0].style.textShadow = "3px 1px 0 blue";
-    document.body.removeEventListener("keydown", castWW);
-    document.body.removeEventListener("keydown", konamiCode);
-    setTimeout(addKeyboard, 1000);
-  }
-}
-function addKeyboard() {
-  document.body.addEventListener("keypress", magicAddKeyClick);
-}
-//konami code breadcrumb
-let kCount = 0;
-document.body.addEventListener("keydown", konamiCode);
-function konamiCode(evt) {
-  let konami = [
-    "ArrowUp",
-    "ArrowUp",
-    "ArrowDown",
-    "ArrowDown",
-    "ArrowLeft",
-    "ArrowRight",
-    "ArrowLeft",
-    "ArrowRight",
-    "b",
-    "a",
-    "Enter"
-  ];
+//magic mode button
+document.querySelector(".magicmode").addEventListener("click", function() {
+  console.log("cast warp world");
+  document.body.style.backgroundImage = "url('./images/warpworld.jpg')";
+  randomCard();
+  document.querySelector(".container").style.display = "none";
+  document.querySelector(".card").style.display = "flex";
+  document.getElementsByTagName("footer")[0].style.display = "none";
+  document.getElementsByTagName("h1")[0].innerHTML = "Magic Card Guessing Game";
+  document.getElementsByTagName("h1")[0].style.color = "cyan";
+  document.getElementsByTagName("h1")[0].style.textShadow = "3px 1px 0 blue";
+  document.getElementsByTagName("h2")[0].style.color = "cyan";
+  document.getElementsByTagName("h2")[0].style.textShadow = "3px 1px 0 blue";
+  setTimeout(addKeyboard, 1000);
+});
 
-  if (evt.key === "ArrowUp" && kCount != 1) {
-    kCount = 1;
-  } else if (evt.key === konami[kCount]) {
-    kCount++;
-  } else {
-    kCount = 0;
-  }
-  if (kCount === konami.length) {
-    document.querySelector(".modal-content").children[1].innerHTML =
-      "Your mind must be warped if you think that's the right code.</br>What world do you think this is?";
-    modal.style.display = "block";
-  }
-}
+//hidden magic mode code
+// document.body.addEventListener("keydown", castWW);
+// let keySequence = 0;
+// function castWW(evt) {
+//   let warpWorld = [
+//     "5",
+//     "r",
+//     "r",
+//     "r",
+//     "w",
+//     "a",
+//     "r",
+//     "p",
+//     "w",
+//     "o",
+//     "r",
+//     "l",
+//     "d"
+//   ];
+//   if (evt.key === "5") {
+//     keySequence = 1;
+//   } else if (evt.key === warpWorld[keySequence]) {
+//     keySequence++;
+//   } else {
+//     keySequence = 0;
+//   }
+//   if (keySequence === warpWorld.length) {
+//     console.log("cast warp world");
+//     document.body.style.backgroundImage = "url('./images/warpworld.jpg')";
+//     randomCard();
+//     document.querySelector(".container").style.display = "none";
+//     document.querySelector(".card").style.display = "flex";
+//     document.getElementsByTagName("footer")[0].style.display = "none";
+//     document.getElementsByTagName("h1")[0].innerHTML =
+//       "Magic Card Guessing Game";
+//     document.getElementsByTagName("h1")[0].style.color = "cyan";
+//     document.getElementsByTagName("h1")[0].style.textShadow = "3px 1px 0 blue";
+//     document.getElementsByTagName("h2")[0].style.color = "cyan";
+//     document.getElementsByTagName("h2")[0].style.textShadow = "3px 1px 0 blue";
+//     document.body.removeEventListener("keydown", castWW);
+//     document.body.removeEventListener("keydown", konamiCode);
+//     setTimeout(addKeyboard, 1000);
+//   }
+// }
+// function addKeyboard() {
+//   document.body.addEventListener("keypress", magicAddKeyClick);
+// }
+
+//konami code breadcrumb
+// let kCount = 0;
+// document.body.addEventListener("keydown", konamiCode);
+// function konamiCode(evt) {
+//   let konami = [
+//     "ArrowUp",
+//     "ArrowUp",
+//     "ArrowDown",
+//     "ArrowDown",
+//     "ArrowLeft",
+//     "ArrowRight",
+//     "ArrowLeft",
+//     "ArrowRight",
+//     "b",
+//     "a",
+//     "Enter"
+//   ];
+
+//   if (evt.key === "ArrowUp" && kCount != 1) {
+//     kCount = 1;
+//   } else if (evt.key === konami[kCount]) {
+//     kCount++;
+//   } else {
+//     kCount = 0;
+//   }
+//   if (kCount === konami.length) {
+//     document.querySelector(".modal-content").children[1].innerHTML =
+//       "Your mind must be warped if you think that's the right code.</br>What world do you think this is?";
+//     modal.style.display = "block";
+//   }
+// }
 //webster breadcrumb
-document.querySelector(".logo").addEventListener("click", websterWW);
-let websterWarp = 0;
-function websterWW() {
-  if (websterWarp < 8) {
-    websterWarp++;
-  }
-  if (websterWarp === 8) {
-    document.querySelector(".modal-content").children[1].innerHTML =
-      "Each player shuffles all permanents they own into their library, then reveals that many cards from the top of their library. Each player puts all artifact, creature, and land cards revealed this way onto the battlefield, then does the same for enchantment cards, then puts all cards revealed this way that weren't put onto the battlefield on the bottom of their library.";
-    modal.style.display = "block";
-    document.querySelector(".logo").removeEventListener("click", websterWW);
-  }
-}
+// document.querySelector(".logo").addEventListener("click", websterWW);
+// let websterWarp = 0;
+// function websterWW() {
+//   if (websterWarp < 8) {
+//     websterWarp++;
+//   }
+//   if (websterWarp === 8) {
+//     document.querySelector(".modal-content").children[1].innerHTML =
+//       "Each player shuffles all permanents they own into their library, then reveals that many cards from the top of their library. Each player puts all artifact, creature, and land cards revealed this way onto the battlefield, then does the same for enchantment cards, then puts all cards revealed this way that weren't put onto the battlefield on the bottom of their library.";
+//     modal.style.display = "block";
+//     document.querySelector(".logo").removeEventListener("click", websterWW);
+//   }
+// }
 
 let magicWord = "";
 let magicWordArray = [];
@@ -716,21 +733,21 @@ function newCardTimed() {
   document.querySelector(".newCard").click();
 }
 
-//modal code
-// Get the modal
-var modal = document.getElementById("myModal");
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-};
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
-//END modal code
+// //modal code
+// // Get the modal
+// var modal = document.getElementById("myModal");
+// // Get the button that opens the modal
+// var btn = document.getElementById("myBtn");
+// // Get the <span> element that closes the modal
+// var span = document.getElementsByClassName("close")[0];
+// // When the user clicks on <span> (x), close the modal
+// span.onclick = function() {
+//   modal.style.display = "none";
+// };
+// // When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//   if (event.target == modal) {
+//     modal.style.display = "none";
+//   }
+// };
+// //END modal code
